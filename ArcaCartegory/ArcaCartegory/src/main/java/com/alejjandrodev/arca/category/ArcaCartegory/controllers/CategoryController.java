@@ -2,39 +2,47 @@ package com.alejjandrodev.arca.category.ArcaCartegory.controllers;
 
 import com.alejjandrodev.arca.category.ArcaCartegory.dtos.CreateCategoryDto;
 import com.alejjandrodev.arca.category.ArcaCartegory.dtos.UpdateCategoryDto;
+import com.alejjandrodev.arca.category.ArcaCartegory.entities.Category;
+import com.alejjandrodev.arca.category.ArcaCartegory.reposotories.CategoryRepository;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 @RestController
 public class CategoryController {
 
-    @RequestMapping(value = "/")
-    public String HolaMundo(){
-        return "Hola Mundo";
+    @Autowired
+    CategoryRepository repository;
+
+    @RequestMapping(value = "/category/")
+    public List<Category> all(){
+        return this.repository.findAll();
     }
 
     @GetMapping(value = "/category/{id}")
-    public CreateCategoryDto get(@PathVariable(value = "id") int id){
+    public Category get(@PathVariable(value = "id") Long id){
         System.out.println("Category " + id );
-        return new CreateCategoryDto("Camara Web", "Aca hay camara webs", "imagen");
+        return this.repository.findById(id).get();
     }
 
     @GetMapping(value = "/category/search")
-    public List<CreateCategoryDto> search(@RequestParam(value = "nombre") String name){
-        LinkedList<CreateCategoryDto> list = new LinkedList<>();
-        list.add(new CreateCategoryDto("Camara Web", "Aca hay camara webs", "imagen"));
-        list.add(new CreateCategoryDto("Monitores", "Aca hay Monitores", "imagen"));
-        list.add(new CreateCategoryDto("Ratones", "Aca hay ratones", "imagen"));
-        return  list;
+    public List<Category> search(@RequestParam(value = "nombre") String name){
+        return  this.repository.findByName(name);
     }
 
     @PostMapping(value = "/category")
-    public CreateCategoryDto create(@Valid @RequestBody() CreateCategoryDto category){
-        category.setNombre(category.getNombre() + " Guardado");
-        return category;
+    public Category create(@Valid @RequestBody() CreateCategoryDto category){
+        Category newCategory = new Category();
+        newCategory.setName(category.getNombre());
+        newCategory.setActiveSince(new Date());
+        newCategory.setDescription(category.getDescripcion());
+        newCategory.setImagen(category.getImagen());
+
+        return this.repository.save(newCategory);
     }
 
 
@@ -54,8 +62,8 @@ public class CategoryController {
 
 
     @DeleteMapping(value = "/category/{id}")
-    public String delete(@PathVariable(value = "id") int id){
-        System.out.println("Category " + id );
+    public String delete(@PathVariable(value = "id") Long id){
+        this.repository.deleteById(id);
         return "Se ha eliminado una categoria";
     }
 }
