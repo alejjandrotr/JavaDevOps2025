@@ -1,3 +1,5 @@
+{ "products":
+
 [
   {
       "id": 1,
@@ -44,3 +46,4 @@
       "isActive": false
   }
 ]
+}
