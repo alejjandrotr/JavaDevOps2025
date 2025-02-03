@@ -1,0 +1,46 @@
+[
+  {
+      "id": 1,
+      "nombre": "Camiseta de Algodón",
+      "descripcion": "Camiseta de algodón 100% con estampado.",
+      "precio": 19.99,
+      "cantidadEnStock": 50,
+      "imagen": "https://example.com/images/camiseta-algodon.jpg",
+      "sitioWeb": "https://example.com/camisetas",
+      "catalogo": "https://example.com/catalogo/camisetas.pdf",
+      "isActive": true
+  },
+  {
+      "id": 2,
+      "nombre": "Pantalones Jeans",
+      "descripcion": "Pantalones jeans ajustados de mezclilla.",
+      "precio": 39.99,
+      "cantidadEnStock": 30,
+      "imagen": "https://example.com/images/pantalones-jeans.jpg",
+      "sitioWeb": "https://example.com/pantalones",
+      "catalogo": "https://example.com/catalogo/pantalones.pdf",
+      "isActive": true
+  },
+  {
+      "id": 3,
+      "nombre": "Zapatillas Deportivas",
+      "descripcion": "Zapatillas deportivas ligeras y cómodas.",
+      "precio": 59.99,
+      "cantidadEnStock": 20,
+      "imagen": "https://example.com/images/zapatillas-deportivas.jpg",
+      "sitioWeb": "https://example.com/zapatillas",
+      "catalogo": "https://example.com/catalogo/zapatillas.pdf",
+      "isActive": true
+  },
+  {
+      "id": 4,
+      "nombre": "Chaqueta de Invierno",
+      "descripcion": "Chaqueta abrigada para climas fríos.",
+      "precio": 89.99,
+      "cantidadEnStock": 15,
+      "imagen": "https://example.com/images/chaqueta-invierno.jpg",
+      "sitioWeb": "https://example.com/chaquetas",
+      "catalogo": null,
+      "isActive": false
+  }
+]
