@@ -1,7 +1,7 @@
 package com.alejjandrodev.ArcaSupliers.ArcaSupliers.services;
 
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.dtos.CreateSuplierDto;
-import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Suplier;
+import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Supplier;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.repositories.SuplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +15,16 @@ public class SuplierService {
     @Autowired
     SuplierRepository repository;
 
-    private List<Suplier> getAll(){
+    private List<Supplier> getAll(){
         return repository.findAllByIsActive(true);
     }
 
-    private Suplier get(Long id){
+    private Supplier get(Long id){
         return repository.findById(id).orElseThrow( /* Excepcion*/);
     }
 
-    private  Suplier create(CreateSuplierDto createSuplierDto) {
-        Suplier newSuplier = new Suplier();
+    private Supplier create(CreateSuplierDto createSuplierDto) {
+        Supplier newSuplier = new Supplier();
         newSuplier.setName(createSuplierDto.getName());
         newSuplier.setActive(true);
         newSuplier.setDescription(createSuplierDto.getDescription());
@@ -43,7 +43,7 @@ public class SuplierService {
     */
 
     private  String delete(Long id){
-        Suplier suplier = this.get(id);
+        Supplier suplier = this.get(id);
 
         if (suplier.getFirstPurchase() != null){
             //Lanzar Exception indicado que no se pueden eliminar spluier con venta
@@ -53,7 +53,7 @@ public class SuplierService {
     }
 
     private String registrarVenta(Long id){
-        Suplier suplier = this.get(id);
+        Supplier suplier = this.get(id);
         suplier.setFirstPurchase(new Date());
         repository.save(suplier);
         return "Se ha comprado al proveedor";
