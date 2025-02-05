@@ -1,8 +1,9 @@
 package com.alejjandrodev.ArcaSupliers.ArcaSupliers.services;
 
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.dtos.CreateSuplierDto;
+import com.alejjandrodev.ArcaSupliers.ArcaSupliers.dtos.UpdateSuplierDto;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Supplier;
-import com.alejjandrodev.ArcaSupliers.ArcaSupliers.repositories.SuplierRepository;
+import com.alejjandrodev.ArcaSupliers.ArcaSupliers.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,23 +11,23 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class SuplierService {
+public class SupplierService {
 
     @Autowired
-    SuplierRepository repository;
+    SupplierRepository repository;
 
-    private List<Supplier> getAll(){
+    public List<Supplier> getAll(){
         return repository.findAllByIsActive(true);
     }
 
-    private Supplier get(Long id){
+    public Supplier get(Long id){
         return repository.findById(id).orElseThrow( /* Excepcion*/);
     }
 
-    private Supplier create(CreateSuplierDto createSuplierDto) {
+    public Supplier create(CreateSuplierDto createSuplierDto) {
         Supplier newSuplier = new Supplier();
         newSuplier.setName(createSuplierDto.getName());
-        newSuplier.setActive(true);
+        newSuplier.setIsActive(true);
         newSuplier.setDescription(createSuplierDto.getDescription());
         newSuplier.setEmail(createSuplierDto.getEmail());
         newSuplier.setTelefono(createSuplierDto.getTelefono());
@@ -34,15 +35,29 @@ public class SuplierService {
         return repository.save(newSuplier);
     }
 
-    /*
+    public Supplier update(Long id, UpdateSuplierDto updateSuplierDto) {
+        Supplier existingSupplier = get(id);
 
-    private  Suplier update (Long id){
+        if (updateSuplierDto.getName() != null) {
+            existingSupplier.setName(updateSuplierDto.getName());
+        }
+        if (updateSuplierDto.getDescription() != null) {
+            existingSupplier.setDescription(updateSuplierDto.getDescription());
+        }
+        if (updateSuplierDto.getEmail() != null) {
+            existingSupplier.setEmail(updateSuplierDto.getEmail());
+        }
+        if (updateSuplierDto.getTelefono() != null) {
+            existingSupplier.setTelefono(updateSuplierDto.getTelefono());
+        }
+        if (updateSuplierDto.getSitioWeb() != null) {
+            existingSupplier.setSitioWeb(updateSuplierDto.getSitioWeb());
+        }
 
+        return repository.save(existingSupplier);
     }
 
-    */
-
-    private  String delete(Long id){
+    public  String delete(Long id){
         Supplier suplier = this.get(id);
 
         if (suplier.getFirstPurchase() != null){
@@ -52,10 +67,11 @@ public class SuplierService {
         return "Se ha eliminado el proveedor";
     }
 
-    private String registrarVenta(Long id){
+    public String registrarVenta(Long id){
         Supplier suplier = this.get(id);
         suplier.setFirstPurchase(new Date());
         repository.save(suplier);
         return "Se ha comprado al proveedor";
     }
 }
+

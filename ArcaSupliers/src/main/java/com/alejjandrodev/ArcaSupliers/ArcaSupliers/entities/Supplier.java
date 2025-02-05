@@ -37,7 +37,7 @@ public class Supplier {
     private String sitioWeb;
 
     @Column()
-    private boolean isActive;
+    private Boolean isActive;
 
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column()

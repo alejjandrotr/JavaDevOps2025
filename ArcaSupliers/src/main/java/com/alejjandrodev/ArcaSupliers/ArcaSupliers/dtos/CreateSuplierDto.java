@@ -2,6 +2,7 @@ package com.alejjandrodev.ArcaSupliers.ArcaSupliers.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
@@ -26,8 +27,8 @@ public class CreateSuplierDto {
     @URL()
     private String sitioWeb;
 
-    @NotBlank()
-    private boolean isActive;
+    @NotNull()
+    private Boolean isActive;
 
     public String getName() {
         return name;
@@ -85,3 +86,6 @@ public class CreateSuplierDto {
         isActive = active;
     }
 }
+
+
+

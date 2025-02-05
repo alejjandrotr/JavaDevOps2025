@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SuplierRepository  extends JpaRepository<Supplier, Long> {
+public interface SupplierRepository extends JpaRepository<Supplier, Long> {
 
     List<Supplier> findAllByIsActive(boolean active);
 }
