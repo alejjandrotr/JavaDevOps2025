@@ -1,6 +1,7 @@
 package com.alejjandrodev.ArcaSupliers.ArcaSupliers.services;
 
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.dtos.StoreDto;
+import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Address;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Store;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Supplier;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.repositories.StoreRepository;
@@ -28,6 +29,30 @@ public class StoreService {
 
         Store store = new Store();
         store.setSupplier(optionalSupplier.get()); // Asignar el objeto Supplier
+        store.setName(dto.getName());
+
+        Address addressNew = new Address();
+        addressNew.setCountry("Chile");
+        addressNew.setStreet("Av 25");
+        addressNew.setCity("Santigo de Chile");
+
+        store.setAddress(addressNew);
+        return storeRepository.save(store);
+    }
+
+    public Store update(StoreDto dto, Long supplierId, Long id) {
+        Optional<Store> storeOptional = storeRepository.findById(id);
+        Optional<Supplier> suplierOptional = supplierRepository.findById(supplierId);
+
+        if (storeOptional.isEmpty()){
+             throw new RuntimeException("Store not found with ID: " + id);
+        }
+
+        if (suplierOptional.isEmpty()){
+             throw new RuntimeException("Suplier not found with ID: " + supplierId);
+        }
+
+        Store store = storeOptional.get();
         store.setName(dto.getName());
 
         return storeRepository.save(store);

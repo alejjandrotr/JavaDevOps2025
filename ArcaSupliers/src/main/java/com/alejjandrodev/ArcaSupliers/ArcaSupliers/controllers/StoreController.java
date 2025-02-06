@@ -24,4 +24,13 @@ public class StoreController {
         Store newStore = storeService.create(storeDto, idSupplier); // Pasa el ID del proveedor al servicio
         return new ResponseEntity<>(newStore, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Store> update( @PathVariable("idSupplier") Long idSupplier,
+                                         @PathVariable("id") Long id,
+                                         @Valid @RequestBody StoreDto storeDto){
+
+        Store updatedStore = storeService.update(storeDto, idSupplier, id);
+        return new ResponseEntity<>(updatedStore, HttpStatus.OK);
+    }
 }

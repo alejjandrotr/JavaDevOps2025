@@ -29,4 +29,8 @@ public class Store {
 
     @Column()
     private  String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 }
