@@ -1,5 +1,6 @@
 package com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,10 @@ public class Store {
 
    /* @OneToMany(mappedBy = "store")
     private List<Supplier> suppliers; */
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Supplier supplier;
 
     @Column()
     private  String name;

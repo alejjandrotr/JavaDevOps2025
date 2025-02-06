@@ -1,11 +1,17 @@
 package com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 public class Product {
     @Id
@@ -27,17 +33,7 @@ public class Product {
     @Column(nullable = false)
     private Integer stock;
 
-    @ManyToOne
-    private Supplier supplier;
-
-    /*
-    @ManyToMany
-    @JoinTable(
-            name = "product_supplier",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "supplier_id")
-    )
+    @ManyToMany(mappedBy = "products", cascade = CascadeType.PERSIST)
     private Set<Supplier> suppliers = new HashSet<>();
-    */
 
 }

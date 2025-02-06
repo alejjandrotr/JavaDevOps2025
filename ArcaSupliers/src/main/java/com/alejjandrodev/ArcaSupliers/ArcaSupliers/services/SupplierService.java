@@ -2,19 +2,27 @@ package com.alejjandrodev.ArcaSupliers.ArcaSupliers.services;
 
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.dtos.CreateSuplierDto;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.dtos.UpdateSuplierDto;
+import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Product;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Supplier;
+import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.SupplierContact;
+import com.alejjandrodev.ArcaSupliers.ArcaSupliers.repositories.ProductRepository;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.repositories.SupplierRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SupplierService {
 
     @Autowired
     SupplierRepository repository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     public List<Supplier> getAll(){
         return repository.findAllByIsActive(true);
@@ -31,7 +39,14 @@ public class SupplierService {
         newSuplier.setDescription(createSuplierDto.getDescription());
         newSuplier.setEmail(createSuplierDto.getEmail());
         newSuplier.setTelefono(createSuplierDto.getTelefono());
-        newSuplier.setSitioWeb(newSuplier.getSitioWeb());
+        newSuplier.setSitioWeb(createSuplierDto.getSitioWeb());
+        newSuplier.setAddress(createSuplierDto.getAddress());
+
+        /** INTSTACIANDO EL OBJETO**/
+        SupplierContact supplierContactNew =  new SupplierContact();
+        BeanUtils.copyProperties(createSuplierDto.getContact(), supplierContactNew);
+
+        newSuplier.setContact(supplierContactNew);
         return repository.save(newSuplier);
     }
 
@@ -72,6 +87,21 @@ public class SupplierService {
         suplier.setFirstPurchase(new Date());
         repository.save(suplier);
         return "Se ha comprado al proveedor";
+    }
+
+    public Supplier addProductToSupplier(Long supplierId, Long productId) {
+        Optional<Supplier> supplierOptional = repository.findById(supplierId);
+        Optional<Product> productOptional = productRepository.findById(productId);
+
+        if (supplierOptional.isPresent() && productOptional.isPresent()) {
+            Supplier supplier = supplierOptional.get();
+            Product product = productOptional.get();
+
+            supplier.getProducts().add(product);
+            return repository.save(supplier);
+        } else {
+            throw new RuntimeException("Proveedor o producto no encontrado");
+        }
     }
 }
 

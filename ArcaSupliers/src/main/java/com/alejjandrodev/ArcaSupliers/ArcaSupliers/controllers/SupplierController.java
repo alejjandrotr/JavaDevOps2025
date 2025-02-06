@@ -55,4 +55,10 @@ public class SupplierController {
         supplierService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/{id}/product-add/{idProduct}")
+    public ResponseEntity<Supplier> addProductToSupplier(@PathVariable Long id, @PathVariable Long idProduct) {
+        Supplier updatedSupplier = supplierService.addProductToSupplier(id, idProduct);
+        return new ResponseEntity<>(updatedSupplier, HttpStatus.OK);
+    }
 }
