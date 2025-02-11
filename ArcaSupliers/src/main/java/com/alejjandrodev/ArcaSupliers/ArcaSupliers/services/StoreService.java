@@ -4,11 +4,13 @@ import com.alejjandrodev.ArcaSupliers.ArcaSupliers.dtos.StoreDto;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Address;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Store;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.entities.Supplier;
+import com.alejjandrodev.ArcaSupliers.ArcaSupliers.repositories.AddressRepository;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.repositories.StoreRepository;
 import com.alejjandrodev.ArcaSupliers.ArcaSupliers.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,7 +20,10 @@ public class StoreService {
     private StoreRepository storeRepository;
 
     @Autowired
-    private SupplierRepository supplierRepository; // Inyectar el repositorio del proveedor
+    private SupplierRepository supplierRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     public Store create(StoreDto dto, Long supplierId) {
         // Buscar el proveedor por ID
@@ -56,5 +61,11 @@ public class StoreService {
         store.setName(dto.getName());
 
         return storeRepository.save(store);
+    }
+
+    public List<Store> findStoreByCity(String city) {
+        List<Address> addressList = addressRepository.findAllByCity(city);
+        List<Long> ids =  addressList.stream().map(Address::getId).toList();
+        return storeRepository.findAllByAddress(ids);
     }
 }
