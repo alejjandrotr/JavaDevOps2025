@@ -15,12 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 public class StoreServiceAceptanceTest {
-    @Mock
-    private StoreRepository storeRepository;
-
-    @Mock
-    private AddressRepository addressRepository;
-
 
     @Autowired
     StoreService storeService;
