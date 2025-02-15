@@ -18,23 +18,13 @@ import java.time.Duration;
 @Service
 public class DeliveryTimeService {
 
-    private final WarehouseRepository warehouseRepository;
     private final StoreRepository storeRepository;
-    private final WarehouseDeliveryTimeRepository warehouseDeliveryTimeRepository;
-    private final StoreDeliveryTimeRepository storeDeliveryTimeRepository;
-    private final WarehouseInventoryRepository warehouseInventoryRepository;
-    private final StoreInventoryRepository storeInventoryRepository;
 
     private final List<IDeliveryTimeCalculator> deliveryTimeCalculators;
 
 
-    public DeliveryTimeService(WarehouseRepository warehouseRepository, StoreRepository storeRepository, WarehouseDeliveryTimeRepository warehouseDeliveryTimeRepository, StoreDeliveryTimeRepository storeDeliveryTimeRepository, WarehouseInventoryRepository warehouseInventoryRepository, StoreInventoryRepository storeInventoryRepository, List<IDeliveryTimeCalculator> deliveryTimeCalculators) {
-        this.warehouseRepository = warehouseRepository;
+    public DeliveryTimeService( StoreRepository storeRepository,  List<IDeliveryTimeCalculator> deliveryTimeCalculators) {
         this.storeRepository = storeRepository;
-        this.warehouseDeliveryTimeRepository = warehouseDeliveryTimeRepository;
-        this.storeDeliveryTimeRepository = storeDeliveryTimeRepository;
-        this.warehouseInventoryRepository = warehouseInventoryRepository;
-        this.storeInventoryRepository = storeInventoryRepository;
         this.deliveryTimeCalculators = deliveryTimeCalculators;
     }
 

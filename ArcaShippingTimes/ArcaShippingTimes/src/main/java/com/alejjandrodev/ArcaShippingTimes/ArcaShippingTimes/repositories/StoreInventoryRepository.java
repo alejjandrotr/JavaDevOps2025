@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface StoreInventoryRepository extends JpaRepository<StoreInventory, Long> {
+public interface StoreInventoryRepository extends JpaRepository<StoreInventory, Long>, ProductStoreRepository{
     @Query("SELECT si.store FROM StoreInventory si " +
             "WHERE si.product.productCode = :productCode " +
             "AND si.store.city.id = :cityId " +
@@ -15,5 +15,33 @@ public interface StoreInventoryRepository extends JpaRepository<StoreInventory, 
             @Param("productCode") String productCode,
             @Param("cityId") Long cityId
     );
+
+
+    @Query("SELECT si.store FROM StoreInventory si " +
+            "WHERE si.product.productCode = :productCode " +
+            "AND si.store.city.id = :cityId " +
+            "AND si.quantity > 0")
+    List<Store> findStoresByProductCodeAndCityIdWithStock2(
+            @Param("productCode") String productCode,
+            @Param("cityId") Long cityId
+    );
+    @Query("SELECT si.store FROM StoreInventory si " +
+            "WHERE si.product.productCode = :productCode " +
+            "AND si.store.city.id = :cityId " +
+            "AND si.quantity > 0")
+    List<Store> findStoresByProductCodeAndCityIdWithStock3(
+            @Param("productCode") String productCode,
+            @Param("cityId") Long cityId
+    );
+
+    @Query("SELECT si.store FROM StoreInventory si " +
+            "WHERE si.product.productCode = :productCode " +
+            "AND si.store.city.id = :cityId " +
+            "AND si.quantity > 0")
+    List<Store> findStoresByProductCodeAndCityIdWithStock4(
+            @Param("productCode") String productCode,
+            @Param("cityId") Long cityId
+    );
+
 
 }
