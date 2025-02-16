@@ -62,25 +62,4 @@ public class WarehouseController {
         }
     }
 
-    @PostMapping("/{warehouseOriginId}/{warehouseDestinationId}")
-    public ResponseEntity<WarehouseDeliveryTime> createDeliveryTime(
-            @PathVariable Long warehouseOriginId,
-            @PathVariable Long warehouseDestinationId,
-            @Valid @RequestBody WarehouseDeliveryTimeDTO deliveryTimeDTO) {
-        WarehouseDeliveryTime createdDeliveryTime = warehouseService.createWarehouseDeliveryTime(
-                warehouseOriginId, warehouseDestinationId, deliveryTimeDTO);
-        return new ResponseEntity<>(createdDeliveryTime, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{warehouseId}/products/{productCode}/quantity")
-    public ResponseEntity<ProductQuantityDTO> getProductQuantity(
-            @PathVariable Long warehouseId,
-            @PathVariable String productCode) {
-        try {
-            ProductQuantityDTO quantityDTO = warehouseService.getProductQuantity(productCode, warehouseId);
-            return new ResponseEntity<>(quantityDTO, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 }

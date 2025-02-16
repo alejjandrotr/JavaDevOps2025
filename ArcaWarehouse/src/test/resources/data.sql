@@ -153,6 +153,7 @@ INSERT INTO warehouse_inventory (product_code, warehouse_id, quantity) VALUES
 ('PROD002', 1, 10),
 ('PROD002', 2, 100),
 ('PROD003', 3, 30),
+('PROD003', 1, 30),
 ('PROD004', 1, 75),
 ('PROD005', 1, 40),
 ('PROD006', 2, 60),

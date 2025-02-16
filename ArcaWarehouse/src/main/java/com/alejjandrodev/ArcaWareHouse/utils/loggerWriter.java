@@ -8,10 +8,9 @@ import java.util.Date;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.springframework.stereotype.Component;
 
-@Component
-public class loggerWriter {
+
+public class loggerWriter  {
 
 
     private static final String LOG_GENERAL_FILE = "general.log";

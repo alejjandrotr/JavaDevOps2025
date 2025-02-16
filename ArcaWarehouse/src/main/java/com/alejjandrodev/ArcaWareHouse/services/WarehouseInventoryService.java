@@ -14,6 +14,7 @@ import com.alejjandrodev.ArcaWareHouse.repositories.DispatchOrderDetailRepositor
 import com.alejjandrodev.ArcaWareHouse.repositories.ProductRepository;
 import com.alejjandrodev.ArcaWareHouse.repositories.WarehouseInventoryRepository;
 import com.alejjandrodev.ArcaWareHouse.repositories.WarehouseRepository;
+import com.alejjandrodev.ArcaWareHouse.utils.ILoggerWriter;
 import com.alejjandrodev.ArcaWareHouse.utils.loggerWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class WarehouseInventoryService {
     private DispatchOrderDetailRepository dispatchOrderDetailRepository;
 
     @Autowired  // Inject the logger
-    private loggerWriter logger;
+    private ILoggerWriter logger;
 
     @Transactional
     public void dispatchProducts(DispatchOrderDTO dispatchOrderDTO) {

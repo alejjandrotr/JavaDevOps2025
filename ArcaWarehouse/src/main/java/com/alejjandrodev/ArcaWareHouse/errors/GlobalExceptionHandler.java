@@ -1,5 +1,6 @@
 package com.alejjandrodev.ArcaWareHouse.errors;
 
+import com.alejjandrodev.ArcaWareHouse.utils.ILoggerWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @Autowired
-    loggerWriter loggerWriter;
+    ILoggerWriter loggerWriter;
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
